@@ -89,7 +89,7 @@ class Gnome(val name: String, var step: Int) {
      * NAME is on step N
      */
     fun info(): String {
-        return ""
+        return "$name is on step $step."
     }
 
     /**
@@ -97,7 +97,13 @@ class Gnome(val name: String, var step: Int) {
      * If the step is occupied, don't move
      */
     fun gotoStep(newStep: Int) {
-
+        if (step == newStep) {
+            println("$name is already on that step.")
+        }
+        else {
+            step = newStep
+            println("$name is now on step $newStep")
+        }
     }
 
     /**
