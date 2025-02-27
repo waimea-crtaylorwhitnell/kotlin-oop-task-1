@@ -50,9 +50,9 @@ fun main() {
     println(sam.info())
     println(amy.info())
 
-    check(jim.info() == "Jim is fishing and is calm")
-    check(sam.info() == "Sam is digging and is calm")
-    check(amy.info() == "Amy is sitting and is calm")
+    check(jim.info() == "Jim is fishing and is calm...")
+    check(sam.info() == "Sam is digging and is calm...")
+    check(amy.info() == "Amy is sitting and is calm...")
 
     println("------------------------")
 
@@ -130,7 +130,7 @@ class Gnome(val name: String, var activity: String) {
      *  NAME is ACTIVITY and is ANGER WORD
      */
     fun info(): String {
-        return ""
+        return "$name is $activity and is ${anger()}..."
     }
 
     /**
@@ -142,7 +142,14 @@ class Gnome(val name: String, var activity: String) {
      * - 9-10 -> apoplectic
      */
     fun anger(): String {
-        return ""
+        return when (angerLevel) {
+            in 1..2 -> "calm"
+            in 3..4 -> "annoyed"
+            in 5..6 -> "angry"
+            in 7..8 -> "furious"
+            in 9..10 -> "apoplectic"
+            else -> {"null"}
+        }
     }
 
     /**
@@ -152,8 +159,14 @@ class Gnome(val name: String, var activity: String) {
      */
     fun poke(numPokes: Int) {
         println("$name gets poked $numPokes times...")
-
-
+        repeat(numPokes) {
+            if (angerLevel < 10) {
+                angerLevel ++
+            }
+            else {
+                println("$name is already apoplectic...")
+            }
+        }
     }
 
     /**
@@ -166,8 +179,20 @@ class Gnome(val name: String, var activity: String) {
      */
     fun pat(numPats: Int) {
         println("$name gets patted $numPats times...")
-
-
+        if (numPats >= 10) {
+            println("$name has had too many pets...")
+            angerLevel = 10
+        }
+        else {
+            repeat(numPats) {
+                if (angerLevel > 1) {
+                    angerLevel --
+                }
+                else {
+                    println("$name is already calm...")
+                }
+            }
+        }
     }
 }
 
